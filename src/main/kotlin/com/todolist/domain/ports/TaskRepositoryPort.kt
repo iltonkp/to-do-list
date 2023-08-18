@@ -1,5 +1,5 @@
 package com.todolist.domain.ports
 
-import com.todolist.domain.interactors.task.CreateTaskInteractor
+import com.todolist.domain.interactors.task.UpsertTaskInteractor
 
-interface TaskRepositoryPort : CreateTaskInteractor.TaskRepository
+interface TaskRepositoryPort : UpsertTaskInteractor.TaskRepository
