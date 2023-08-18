@@ -8,5 +8,5 @@ data class Task(
     val title: String? = null,
     val description: String,
     val isActive: Boolean = true,
-    val taskDate: LocalDate
+    val date: LocalDate
 )

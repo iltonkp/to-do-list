@@ -13,20 +13,20 @@ data class TaskDto(
     val title: String? = null,
     val description: String,
     val isActive: Boolean = true,
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
-    val taskDate: LocalDate
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    val date: LocalDate
 )
 
 fun Task.toTaskDto() =
     TaskDto(
         title = this.title,
         description = this.description,
-        taskDate = this.taskDate
+        date = this.date
     )
 
 fun TaskDto.toTask() =
     Task(
         title = this.title,
         description = this.description,
-        taskDate = this.taskDate,
+        date = this.date,
     )
