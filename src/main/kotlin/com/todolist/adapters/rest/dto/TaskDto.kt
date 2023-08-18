@@ -10,6 +10,7 @@ import java.time.LocalDate
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class TaskDto(
+    val id: String? = null,
     val title: String? = null,
     val description: String,
     val isActive: Boolean = true,
@@ -17,16 +18,11 @@ data class TaskDto(
     val date: LocalDate
 )
 
-fun Task.toTaskDto() =
-    TaskDto(
-        title = this.title,
-        description = this.description,
-        date = this.date
-    )
-
 fun TaskDto.toTask() =
     Task(
+        id = this.id,
         title = this.title,
         description = this.description,
+        isActive = this.isActive,
         date = this.date,
     )

@@ -49,6 +49,7 @@ fun TaskEntity.toTask() =
 
 fun Task.toTaskEntity() =
     TaskEntity(
+        id = this.id,
         title = this.title,
         description = this.description,
         isActive = this.isActive,
