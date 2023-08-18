@@ -1,33 +1,40 @@
 package com.todolist.adapters.dataproviders.entities
 
 import com.todolist.domain.models.Task
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.time.LocalDate
+import java.util.*
+
 
 @Entity
-@Table(name = "Tasks")
+@Table(name = "tasks")
 data class TaskEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: String? = null,
     val title: String? = null,
-    val description: String? = null,
-    @Column(name = "is_active")
-    val isActive: Boolean? = true,
-    val taskDate: LocalDate? = null
+    @Column(nullable = false)
+    val description: String,
+    @Column(name = "is_active", nullable = false)
+    val isActive: Boolean = true,
+    @Column(name = "task_date", nullable = false)
+    val date: LocalDate
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TaskEntity) return false
-
-        return id != null && id == other.id
+        return Objects.equals(id, other.id)
     }
 
-    override fun hashCode(): Int = 31
+    override fun hashCode(): Int = Objects.hash(id)
 
-    @Override
     override fun toString(): String {
-        return this::class.simpleName + "(id = $id )"
+        return "TaskEntity(id=$id, title=$title, description=$description, isActive=$isActive, date=$date)"
     }
 }
 
@@ -35,9 +42,9 @@ fun TaskEntity.toTask() =
     Task(
         id = this.id,
         title = this.title,
-        description = this.description!!,
-        isActive = this.isActive!!,
-        taskDate = this.taskDate!!
+        description = this.description,
+        isActive = this.isActive,
+        date = this.date
     )
 
 fun Task.toTaskEntity() =
@@ -45,5 +52,5 @@ fun Task.toTaskEntity() =
         title = this.title,
         description = this.description,
         isActive = this.isActive,
-        taskDate = this.taskDate
+        date = this.date
     )
