@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -19,7 +20,7 @@ class TaskController(
     private val upsertTaskInteractor: UpsertTaskInteractor
 ) {
 
-    @PostMapping(
+    @PutMapping(
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
@@ -28,6 +29,6 @@ class TaskController(
             interactor = upsertTaskInteractor,
             requestDto = task,
             requestConverter = {it.toTask()},
-            responseConverter = {_ -> ResponseEntity<Unit>(HttpStatus.CREATED)}
+            responseConverter = {_ -> ResponseEntity<Unit>(HttpStatus.OK)}
         )
 }
