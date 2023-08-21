@@ -14,12 +14,21 @@ data class TaskDto(
     val title: String? = null,
     val description: String,
     val isActive: Boolean = true,
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     val date: LocalDate
 )
 
 fun TaskDto.toTask() =
     Task(
+        id = this.id,
+        title = this.title,
+        description = this.description,
+        isActive = this.isActive,
+        date = this.date,
+    )
+
+fun Task.toTaskDto() =
+    TaskDto(
         id = this.id,
         title = this.title,
         description = this.description,

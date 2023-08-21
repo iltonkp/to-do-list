@@ -2,6 +2,7 @@ package com.todolist.domain.interactors
 
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletionStage
+import javax.swing.table.TableStringConverter
 
 interface Interactor<in Request, out Response> {
     fun execute(request: Request): Response
@@ -25,6 +26,7 @@ interface InteractorExecutor {
 
     operator fun invoke(interactor: Interactor<Unit, Unit>) =
         invoke(interactor, Unit, {})
+
 
     operator fun <ResponseDto, Response> invoke(
         interactor: Interactor<Unit, Response>,
