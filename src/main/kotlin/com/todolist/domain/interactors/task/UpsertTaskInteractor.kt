@@ -16,12 +16,7 @@ class UpsertTaskInteractor(
         if (request.date.isBefore(LocalDate.now()))
             throw InvalidDateException("The task date can not be before today.")
 
-        taskRepositoryPort.save(request)
+        taskRepositoryPort.upsertTask(request)
     }
-
-    interface TaskRepository {
-        fun save(task: Task)
-    }
-
 }
 

@@ -12,9 +12,5 @@ class SearchTaskInteractor(
 ) : Interactor<LocalDate?, List<Task>> {
 
     override fun execute(request: LocalDate?): List<Task> =
-        taskRepositoryPort.findAll(request ?: LocalDate.now())
-
-    interface TaskRepository {
-        fun findAll(date: LocalDate): List<Task>
-    }
+        taskRepositoryPort.searchTasksByDate(request ?: LocalDate.now())
 }

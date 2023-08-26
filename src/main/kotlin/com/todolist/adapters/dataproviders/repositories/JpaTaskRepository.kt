@@ -15,11 +15,11 @@ class JpaTaskRepository(
 ) : TaskRepositoryPort {
 
     @Transactional
-    override fun save(task: Task) {
+    override fun upsertTask(task: Task) {
         postgresTaskRepository.run { save(task.toTaskEntity()) }
     }
 
-    override fun findAll(date: LocalDate): List<Task> =
+    override fun searchTasksByDate(date: LocalDate): List<Task> =
         postgresTaskRepository.findAll(
             TaskEntitySpecifications.by(date)
         ).map(TaskEntity::toTask)
