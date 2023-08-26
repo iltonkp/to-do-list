@@ -11,12 +11,12 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.time.LocalDate
 
 @RestController
 @RequestMapping("/task")
@@ -41,15 +41,13 @@ class TaskController(
     @GetMapping(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun searchTask(
-        @RequestParam(name = "date", required = false) date: String? = ""
+    fun searchTasks(
+        @RequestParam(name = "date", required = false) date: LocalDate? = null
     ) =
         interactorExecutor(
             interactor = searchTaskInteractor,
             requestDto = date,
-            requestConverter = {it.toString()},
-            responseConverter = {it.map(Task::toTaskDto) }
-
+            requestConverter = { it },
+            responseConverter = { it.map(Task::toTaskDto) }
         )
-
 }

@@ -1,6 +1,7 @@
 package com.todolist.configurations
 
 import com.todolist.domain.exceptions.InvalidDateException
+import org.springframework.core.convert.ConversionFailedException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -11,6 +12,16 @@ class ExceptionHandlerConfig {
 
     @ExceptionHandler
     fun handleInvalidDateException(ex: InvalidDateException): ResponseEntity<ErrorDto> {
+        val errorDto = ErrorDto(
+            statusCode = HttpStatus.BAD_REQUEST.value(),
+            message = ex.message
+        )
+
+        return ResponseEntity(errorDto, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler
+    fun handleConversionFailedException(ex: ConversionFailedException): ResponseEntity<ErrorDto> {
         val errorDto = ErrorDto(
             statusCode = HttpStatus.BAD_REQUEST.value(),
             message = ex.message

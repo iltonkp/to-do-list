@@ -7,6 +7,7 @@ import com.todolist.domain.models.Task
 import com.todolist.domain.ports.TaskRepositoryPort
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Repository
+import java.time.LocalDate
 
 @Repository
 class JpaTaskRepository(
@@ -18,6 +19,8 @@ class JpaTaskRepository(
         postgresTaskRepository.run { save(task.toTaskEntity()) }
     }
 
-    override fun findAll(date: String): List<Task> =
-        postgresTaskRepository.findAll().map(TaskEntity::toTask)
+    override fun findAll(date: LocalDate): List<Task> =
+        postgresTaskRepository.findAll(
+            TaskEntitySpecifications.by(date)
+        ).map(TaskEntity::toTask)
 }

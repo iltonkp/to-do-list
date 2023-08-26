@@ -4,16 +4,17 @@ import com.todolist.domain.interactors.Interactor
 import com.todolist.domain.models.Task
 import com.todolist.domain.ports.TaskRepositoryPort
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 @Service
 class SearchTaskInteractor(
     private val taskRepositoryPort: TaskRepositoryPort
-) : Interactor<String, List<Task>> {
+) : Interactor<LocalDate?, List<Task>> {
 
-    override fun execute(request: String): List<Task> =
-        taskRepositoryPort.findAll(request)
+    override fun execute(request: LocalDate?): List<Task> =
+        taskRepositoryPort.findAll(request ?: LocalDate.now())
 
     interface TaskRepository {
-        fun findAll(date: String): List<Task>
+        fun findAll(date: LocalDate): List<Task>
     }
 }
