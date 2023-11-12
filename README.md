@@ -1,1 +1,1 @@
-# TO-DO list project
+# TO-DO list
